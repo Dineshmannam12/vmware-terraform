@@ -1,7 +1,7 @@
 resource "vsphere_virtual_machine" "testingvm" {
-  name             = "ubuntu-vm-from-iso"
-  resource_pool_id = data.vsphere_resource_pool.host_pool.id
-  datastore_id     = data.vsphere_datastore.datastore.id
+  name             = var.vm_name
+  resource_pool_id = var.resource_pool_id
+  datastore_id     = var.datastore_id
 
   num_cpus             = 4
   memory               = 4096
@@ -12,7 +12,7 @@ resource "vsphere_virtual_machine" "testingvm" {
   enable_hot_add_memory = true
 
   network_interface {
-    network_id   = data.vsphere_network.network.id
+    network_id   = var.network_id
     adapter_type = "vmxnet3"
   }
 
@@ -24,7 +24,7 @@ resource "vsphere_virtual_machine" "testingvm" {
 
   cdrom {
     client_device = false
-    datastore_id  = data.vsphere_datastore.datastore.id
+    datastore_id  = var.datastore_id
     path          = "iso/ubuntu-22.04-live-server-amd64.iso"
   }
 
