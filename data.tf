@@ -10,12 +10,13 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 data "vsphere_host" "esxi_host" {
-  name          = "192.168.68.4"
+  name          = "192.168.68.3"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 # Resource pool on that host
 data "vsphere_resource_pool" "host_pool" {
-  name           = "Resources"
-  host_system_id = data.vsphere_host.esxi_host.id
+  name           = "/pidc/host/192.168.68.4/Resources"
+  datacenter_id = data.vsphere_datacenter.dc.id
+  #host_system_id = data.vsphere_host.esxi_host.id
 }

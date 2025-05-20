@@ -1,15 +1,17 @@
-resource "vsphere_virtual_machine" "testingvm" {
+resource "vsphere_virtual_machine" "test5-vm3" {
   name             = var.vm_name
   resource_pool_id = var.resource_pool_id
   datastore_id     = var.datastore_id
 
-  num_cpus             = 4
-  memory               = 4096
-  guest_id             = "ubuntu64Guest"
-  scsi_type            = "lsilogic"
-  firmware             = "bios"
-  enable_hot_add_cpu   = true
-  enable_hot_add_memory = true
+  num_cpus = 4
+  memory   = 4096
+  guest_id = "ubuntu64Guest"
+  scsi_type = "lsilogic"
+  firmware  = "bios"
+
+  enable_disk_uuid       = true
+  cpu_hot_add_enabled    = true
+  memory_hot_add_enabled = true
 
   network_interface {
     network_id   = var.network_id
@@ -30,9 +32,6 @@ resource "vsphere_virtual_machine" "testingvm" {
 
   boot_delay = 5000
 
-  boot_options {
-    boot_order = ["cdrom", "disk"]
-  }
-
   wait_for_guest_net_timeout = 0
 }
+

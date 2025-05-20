@@ -1,6 +1,6 @@
 module "vm" {
   source           = "./modules/vm"
-  vm_name          = "my-vm"
+  vm_name          = "ubuntu3-vm"
   datastore_id     = data.vsphere_datastore.datastore.id
   network_id       = data.vsphere_network.network.id
   host_id          = data.vsphere_host.esxi_host.id
