@@ -14,3 +14,7 @@ variable "vsphere_hostname" {
     type = string
     default = "192.168.68.2"
 }
+variable "vault_token"{
+    description = "this is vault token"
+    type = string
+}

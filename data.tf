@@ -24,3 +24,11 @@ data "vsphere_resource_pool" "host_pool" {
   datacenter_id = data.vsphere_datacenter.dc.id
   #host_system_id = data.vsphere_host.esxi_host.id
 }
+data "vault_kv_secret_v2" "vsphere_creds" {
+  mount = "kv"
+  name  = "vsphere"
+}
+
+
+
+

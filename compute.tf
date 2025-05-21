@@ -45,6 +45,21 @@ module "vm" {
         }
       ]
     }
+    vm7 = {
+      name        = "app08"
+      cpu         = 2
+      mem         = 2048
+      size        = 150
+      iso_path    = "iso/SW_DVD9_Win_Server_STD_CORE_2022_2108.16_64Bit_English_DC_STD_MLF_X23-32717.ISO"
+      disks = [
+        {
+          label         = "disk-1"
+          size          = 210
+          datastore_id  = data.vsphere_datastore.datastore.id
+          unit_number = 1
+        }
+      ]
+    }
 
   }
 
