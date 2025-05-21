@@ -3,8 +3,8 @@ resource "vsphere_virtual_machine" "test5-vm3" {
   resource_pool_id = var.resource_pool_id
   datastore_id     = var.datastore_id
 
-  num_cpus = 4
-  memory   = 4096
+  num_cpus = var.num_cpus
+  memory   = var.memory
   guest_id = "ubuntu64Guest"
   scsi_type = "lsilogic"
   firmware  = "bios"
@@ -22,6 +22,17 @@ resource "vsphere_virtual_machine" "test5-vm3" {
     label            = "boot-disk"
     size             = 100
     thin_provisioned = true
+    unit_number = 0
+  }
+  dynamic "disk" {
+    for_each = var.extra_disks
+    content {
+      label            = disk.value.label
+      size             = disk.value.size
+      datastore_id     = disk.value.datastore_id
+      thin_provisioned = true
+      unit_number      = lookup(disk.value, "unit_number", 1 + index(var.extra_disks, disk.value))
+    }
   }
 
   cdrom {
