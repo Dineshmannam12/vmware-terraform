@@ -1,36 +1,51 @@
 module "vm" {
   for_each = {
-    vm1 = {
-      name        = "web01"
-      cpu         = 2
-      mem         = 2048
-      extra_disks = []
-    }
-    vm2 = {
-      name        = "db01"
-      cpu         = 4
-      mem         = 4096
-      extra_disks = []
-    }
-    vm3 = {
-      name        = "app01"
-      cpu         = 3
-      mem         = 2048
-      extra_disks = []
-    }
     vm4 = {
       name        = "app02"
       cpu         = 4
       mem         = 2048
-      extra_disks = [
+      size        = 100
+      iso_path    = "iso/ubuntu-22.04-live-server-amd64.iso"
+      disks = [
         {
           label         = "disk-1"
           size          = 100
+          datastore_id  = data.vsphere_datastore.datastore.id
+          unit_number = 0
+        }
+      ]
+    }
+     vm5 = {
+      name        = "app04"
+      cpu         = 4
+      mem         = 4196
+      size        = 200
+      iso_path    = "iso/CentOS-Stream-10-latest-x86_64-dvd1.iso"
+      disks = [
+        {
+          label         = "disk-1"
+          size          = 200
+          datastore_id  = data.vsphere_datastore.datastore.id
+          unit_number = 0
+        }
+      ]
+    }
+    vm6 = {
+      name        = "app06"
+      cpu         = 4
+      mem         = 2048
+      size        = 100
+      iso_path    = "iso/CentOS-Stream-10-latest-x86_64-dvd1.iso"
+      disks = [
+        {
+          label         = "disk-1"
+          size          = 150
           datastore_id  = data.vsphere_datastore.datastore.id
           unit_number = 1
         }
       ]
     }
+
   }
 
   source           = "./modules/vm"
@@ -41,6 +56,9 @@ module "vm" {
   network_id       = data.vsphere_network.network.id
   host_id          = data.vsphere_host.esxi_host.id
   resource_pool_id = data.vsphere_resource_pool.host_pool.id
-  extra_disks      = each.value.extra_disks
+  disks            = each.value.disks
+  disk_size        = each.value.size
+  iso_datastore_id = data.vsphere_datastore.iso_datastore.id
+  iso_path_id      = each.value.iso_path
 }
 

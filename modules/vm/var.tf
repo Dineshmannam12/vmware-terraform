@@ -5,7 +5,8 @@ variable "host_id" {}
 variable "resource_pool_id" {}
 variable "num_cpus"{}
 variable "memory"{}
-variable "extra_disks" {
+variable "disk_size"{}
+variable "disks" {
   type    = list(object({
     label        = string
     size         = number
@@ -13,3 +14,5 @@ variable "extra_disks" {
   }))
   default = []
 }
+variable "iso_datastore_id"{}
+variable "iso_path_id"{}

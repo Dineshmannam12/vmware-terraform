@@ -5,6 +5,10 @@ data "vsphere_datastore" "datastore" {
   name          = "truenas ds1"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
+data "vsphere_datastore" "iso_datastore" {
+  name          = "truenas ds1"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
 data "vsphere_network" "network" {
   name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id

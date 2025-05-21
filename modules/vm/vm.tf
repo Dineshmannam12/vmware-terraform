@@ -17,28 +17,28 @@ resource "vsphere_virtual_machine" "test5-vm3" {
     network_id   = var.network_id
     adapter_type = "vmxnet3"
   }
-
   disk {
-    label            = "boot-disk"
-    size             = 100
-    thin_provisioned = true
-    unit_number = 0
-  }
+  label            = "boot-disk"
+  size             = var.disk_size
+  unit_number      = 0       # Must be 0 for boot disk
+  thin_provisioned = true
+}
+
   dynamic "disk" {
-    for_each = var.extra_disks
+    for_each = var.disks
     content {
       label            = disk.value.label
       size             = disk.value.size
       datastore_id     = disk.value.datastore_id
       thin_provisioned = true
-      unit_number      = lookup(disk.value, "unit_number", 1 + index(var.extra_disks, disk.value))
+      unit_number      = lookup(disk.value, "unit_number", 1 + index(var.disks, disk.value))
     }
   }
 
   cdrom {
     client_device = false
-    datastore_id  = var.datastore_id
-    path          = "iso/ubuntu-22.04-live-server-amd64.iso"
+    datastore_id  = var.iso_datastore_id
+    path          = var.iso_path_id
   }
 
   boot_delay = 5000
