@@ -1,7 +1,7 @@
 module "vm" {
   for_each = {
     vm4 = {
-      name        = "app02"
+      name        = "test-vm"
       cpu         = 4
       mem         = 2048
       size        = 100
@@ -16,7 +16,7 @@ module "vm" {
       ]
     }
      vm5 = {
-      name        = "app04"
+      name        = "dinesh-vm"
       cpu         = 4
       mem         = 4196
       size        = 200
@@ -31,7 +31,7 @@ module "vm" {
       ]
     }
     vm6 = {
-      name        = "app06"
+      name        = "app01"
       cpu         = 4
       mem         = 2048
       size        = 100
@@ -46,7 +46,7 @@ module "vm" {
       ]
     }
     vm7 = {
-      name        = "app08"
+      name        = "app02"
       cpu         = 2
       mem         = 2048
       size        = 150
