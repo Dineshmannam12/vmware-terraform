@@ -17,12 +17,14 @@ resource "vsphere_virtual_machine" "test5-vm3" {
     network_id   = var.network_id
     adapter_type = "vmxnet3"
   }
+
   disk {
-  label            = "boot-disk"
-  size             = var.disk_size
-  unit_number      = 0       # Must be 0 for boot disk
-  thin_provisioned = true
-}
+    label            = "os_disk"
+    size             = var.disk_size
+    eagerly_scrub    = false
+    unit_number      = 0
+    thin_provisioned = true
+  }
 
   dynamic "disk" {
     for_each = var.disks
