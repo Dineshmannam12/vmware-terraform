@@ -42,3 +42,6 @@ variable "resource_pool_id" {
   type = string
 }
 variable "iso_datastore_id"{}
+variable "vm_count"{
+  type = number 
+}

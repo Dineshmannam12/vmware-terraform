@@ -4,6 +4,7 @@ module "vm" {
 
   vm_name          = each.value.name
   num_cpus         = each.value.cpu
+  vm_count         = each.value.count
   memory           = each.value.mem
   disk_size        = each.value.disk_size
   iso_path_id         = each.value.iso_path

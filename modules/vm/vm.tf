@@ -1,5 +1,6 @@
 resource "vsphere_virtual_machine" "test5-vm3" {
-  name             = var.vm_name
+  count            = var.vm_count
+  name             = var.vm_count > 1? "${var.vm_name}-${count.index+1}": "${var.vm_name}"
   resource_pool_id = var.resource_pool_id
   datastore_id     = var.datastore_id
 

@@ -21,6 +21,7 @@ variable "vault_token"{
 variable "vm_definitions" {
   type = map(object({
     name            = string
+    count           = optional(number, 1)
     cpu             = number
     mem             = number
     disk_size       = number
